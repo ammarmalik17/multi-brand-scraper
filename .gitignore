@@ -49,3 +49,6 @@ data/
 
 # Supabase
 .supabase/
+
+# Documentation
+*.md
