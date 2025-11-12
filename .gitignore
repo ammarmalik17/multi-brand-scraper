@@ -51,4 +51,4 @@ data/
 .supabase/
 
 # Documentation
-*.md
+techstack.md
