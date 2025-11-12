@@ -52,6 +52,14 @@ Several utility modules encapsulate common functionality:
 - **DatabaseManager**: Centralizes database operations and connection management
 - **RequestUtils**: Custom utility module implementing anti-blocking measures including user agent rotation, referrer spoofing, and exponential backoff retry logic to avoid detection during scraping
 
+### Supabase Management Scripts
+Several utility scripts manage Supabase integration:
+- **setup_supabase.py**: Creates required database tables using direct PostgreSQL connection
+- **check_supabase.py**: Verifies connection and displays sample data from Supabase
+- **upload_to_supabase.py**: Uploads scraped data from JSON files to Supabase
+- **update_supabase_schema.py**: Updates database schema as needed
+- **check_latest.py**: Displays information about the most recently scraped data
+
 ## Key Features & Capabilities
 
 ### Command-Line Interface
@@ -104,3 +112,5 @@ This project demonstrates proficiency in:
 - **Extensibility**: Factory pattern and inheritance for easy addition of new brands
 - **Documentation**: Clear docstrings and code comments
 - **Testing**: Error handling and validation at multiple levels
+- **Performance**: Parallel processing and efficient data handling
+- **Resilience**: Anti-blocking measures and retry logic for reliable scraping

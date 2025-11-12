@@ -4,50 +4,65 @@ A flexible and extensible web scraper that can handle multiple brands with separ
 
 ## Features
 
-- Modular architecture with separate scraper for each brand
-- Individual configuration files for each brand
-- Support for HTML and API-based scraping
-- Data export in multiple formats (JSON, CSV)
-- Supabase integration for centralized data storage
-- Command-line interface for easy usage
+- **Modular Architecture**: Separate scraper implementation for each brand with shared base functionality
+- **Configuration-Driven**: Individual JSON configuration files for each brand enable easy customization
+- **Multiple Scraping Approaches**: Support for both HTML parsing and API-based scraping
+- **Flexible Data Export**: Data export in multiple formats (JSON, CSV) with pandas DataFrame support
+- **Supabase Integration**: Complete integration with Supabase for centralized data storage
+- **Anti-Blocking Measures**: User agent rotation, referrer spoofing, and exponential backoff retry logic
+- **Parallel Processing**: Concurrent scraping using ThreadPoolExecutor for improved performance
+- **Command-Line Interface**: Intuitive CLI with multiple options for flexible usage
+- **Error Handling & Logging**: Comprehensive exception handling and structured logging
+- **Extensibility**: Easy to add new brands by following the established directory structure
 
 ## Supported Brands
 
-1. Sapphire Online - Pagination-based HTML scraping with AJAX requests
-2. Khaadi - Pagination-based HTML scraping with AJAX requests
+1. **Sapphire Online** - Pagination-based HTML scraping with AJAX requests
+2. **Khaadi** - Pagination-based HTML scraping with AJAX requests
+
+Both scrapers implement advanced features including:
+- Category-based scraping with configurable limits
+- Product detail enhancement with additional API calls
+- Anti-blocking measures to avoid detection
+- Parallel processing for improved performance
 
 ## Project Structure
 
 ```
 .
-├── brands/                     # Brand-specific packages
-│   ├── base_scraper.py         # Base scraper class for all brands
-│   ├── sapphire/               # Sapphire brand package
-│   │   ├── config/             # Brand-specific configuration
-│   │   │   └── config.json     # Brand configuration
-│   │   └── scraper/            # Brand-specific scraper
-│   │       └── scraper.py      # Scraper implementation
-│   └── khaadi/                 # Khaadi brand package
-│       ├── config/             # Brand-specific configuration
-│       │   └── config.json     # Brand configuration
-│       └── scraper/            # Brand-specific scraper
-│           └── scraper.py      # Scraper implementation
-├── config/                     # Legacy configuration files
-├── src/                        # Source code
-│   ├── scrapers/               # Legacy scrapers directory
-│   ├── utils/                  # Utility modules
-│   │   ├── config_loader.py    # Utility to load brand configurations
-│   │   ├── data_processor.py   # Utility to process and save data
-│   │   └── database_manager.py # Manager for database operations
-│   └── scraper_factory.py      # Factory to create brand-specific scrapers
-├── data/                       # Output directory for scraped data
-├── main.py                     # Main entry point
-├── upload_to_supabase.py       # Utility to upload data to Supabase
-├── setup_supabase.py           # Sets up Supabase table structure
-├── check_supabase.py           # Verify connection to Supabase
-├── update_supabase_schema.py   # Update Supabase schema
-├── .env                        # Environment variables for Supabase (not in repo)
-└── requirements.txt            # Project dependencies
+├── brands/                        # Brand-specific packages
+│   ├── __init__.py                # Exports brand scrapers
+│   ├── base_scraper.py            # Base scraper class for all brands
+│   ├── sapphire/                  # Sapphire brand package
+│   │   ├── __init__.py            # Exports Sapphire scraper
+│   │   ├── config/                # Brand-specific configuration
+│   │   │   └── config.json        # Brand configuration
+│   │   └── scraper/               # Brand-specific scraper
+│   │       └── scraper.py         # Scraper implementation
+│   └── khaadi/                    # Khaadi brand package
+│       ├── __init__.py            # Exports Khaadi scraper
+│       ├── config/                # Brand-specific configuration
+│       │   └── config.json        # Brand configuration
+│       └── scraper/               # Brand-specific scraper
+│           └── scraper.py         # Scraper implementation
+├── src/                           # Source code
+│   ├── __init__.py                # Package initializer
+│   ├── scraper_factory.py         # Factory to create brand-specific scrapers
+│   └── utils/                     # Utility modules
+│       ├── __init__.py            # Package initializer
+│       ├── config_loader.py       # Utility to load brand configurations
+│       ├── data_processor.py      # Utility to process and save data
+│       ├── database_manager.py    # Manager for database operations
+│       └── request_utils.py       # Anti-blocking utilities for HTTP requests
+├── data/                          # Output directory for scraped data
+├── main.py                        # Main entry point
+├── check_latest.py                # Check latest scraped data
+├── check_supabase.py              # Verify connection to Supabase and view data
+├── setup_supabase.py              # Sets up Supabase table structure
+├── update_supabase_schema.py      # Update Supabase schema
+├── upload_to_supabase.py          # Utility to upload data to Supabase
+├── .env                           # Environment variables for Supabase (not in repo)
+└── requirements.txt               # Project dependencies
 ```
 
 ## Installation
@@ -87,6 +102,10 @@ A flexible and extensible web scraper that can handle multiple brands with separ
      ```
      python setup_supabase.py
      ```
+
+5. Verify your setup:
+   - Test Supabase connectivity: `python check_supabase.py`
+   - Check latest scraped data: `python check_latest.py`
 
 ## Usage
 
@@ -136,12 +155,15 @@ python upload_to_supabase.py --file data/brand_name_20230701_120000.json --brand
 
 ## Supabase Integration
 
-The project includes integration with Supabase for storing scraped data:
+The project includes comprehensive integration with Supabase for storing scraped data:
 
-1. **Product Table Schema**: Created by `setup_supabase.py`, includes fields for product details.
-2. **Brand Table**: References brands with their IDs.
-3. **Data Upload**: Products are automatically formatted and uploaded to Supabase when using the `--supabase` flag.
-4. **Data Validation**: The upload process includes validation and error handling.
+1. **Product Table Schema**: Created by `setup_supabase.py`, includes fields for complete product details.
+2. **Brand Table**: References brands with their IDs for proper data organization.
+3. **Automatic Data Upload**: Products are automatically formatted and uploaded to Supabase when using the `--supabase` flag in main.py.
+4. **Manual Upload Utility**: The `upload_to_supabase.py` script allows uploading existing JSON files to Supabase.
+5. **Data Validation**: The upload process includes validation and error handling.
+6. **Connection Verification**: The `check_supabase.py` script verifies connectivity and displays sample data.
+7. **Schema Updates**: The `update_supabase_schema.py` script handles schema modifications.
 
 ## Troubleshooting Supabase Connection
 
@@ -163,6 +185,18 @@ If you encounter issues with Supabase:
 5. Add an `__init__.py` file in your brand directory that exposes your scraper class
 6. Update the main brands `__init__.py` file to include your new scraper
 7. Add the brand to Supabase brand table if using Supabase integration
+
+### Configuration Options
+
+Brand configurations support numerous options including:
+- Base URL and API endpoints
+- HTTP headers and timeout settings
+- Category definitions for scraping
+- CSS selectors for data extraction
+- Rate limiting and parallel processing parameters
+- Product enhancement settings
+
+Refer to existing brand configurations for examples of available options.
 
 ## License
 
