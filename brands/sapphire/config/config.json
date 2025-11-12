@@ -1,0 +1,31 @@
+{
+    "name": "Sapphire Online",
+    "brand_id": "9d3a6d4c-73f1-47bd-a5eb-5b491bd5bcda",
+    "base_url": "https://pk.sapphireonline.pk",
+    
+    "search_api_url": "https://pk.sapphireonline.pk/on/demandware.store/Sites-Sapphire-Site/default/Search-UpdateGrid",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://pk.sapphireonline.pk/sale/",
+        "X-Requested-With": "XMLHttpRequest"
+    },
+    "timeout": 30,
+    "categories": {
+        "woman": "woman"
+    },
+    "product_selector": ".product-tile",
+    "name_selector": ".pdp-link a.link",
+    "price_selector": ".price .sales .value",
+    "original_price_selector": ".price del .value",
+    "subtitle_selector": ".subtitle",
+    "primary_image_selector": ".plp-dual-image img.tile-image",
+    "hover_image_selector": ".plp-dual-image img.hover-image",
+    "page_size": 12,
+    "sleep_between_requests": 2,
+    "retry_count": 3,
+    "retry_delay": 5,
+    "product_limit": 12,
+    "max_workers": 3
+} 

@@ -1,0 +1,36 @@
+{
+    "name": "Khaadi",
+    "brand_id": "99e2e61c-b850-4d56-891e-0a5f2fb23db8",
+    "base_url": "https://pk.khaadi.com",
+    "search_api_url": "https://pk.khaadi.com/on/demandware.store/Sites-Khaadi_PK-Site/en_PK/Search-UpdateGrid",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Language": "en-GB,en;q=0.9",
+        "Referer": "https://pk.khaadi.com/sale/",
+        "X-Requested-With": "XMLHttpRequest"
+    },
+    "timeout": 30,
+    "categories": {
+        "fabrics": "002-Fabrics",
+        "ready_to_wear": "003-Ready-To-Wear"
+    },
+    "product_selector": ".product-tile",
+    "name_selector": ".pdp-link .pdp-link-heading",
+    "product_brand_selector": ".product-brand .text-truncate",
+    "price_selector": ".price .sales .value",
+    "original_price_selector": ".price .strike-through .value",
+    "discount_selector": ".product-sale-label",
+    "pdp_link_selector": ".pdp-link a.link",
+    "primary_image_selector": ".product-tile .image-container img.tile-image",
+    "hover_image_selector": ".image-container__hover-image img.hover-image",
+    "page_size": 32,
+    "sleep_between_requests": 2,
+    "retry_count": 3,
+    "retry_delay": 5,
+    "product_limit": 0,
+    "max_workers": 5,
+    "enhance_with_details": true,
+    "detail_workers": 5,
+    "product_variation_api": "https://pk.khaadi.com/on/demandware.store/Sites-Khaadi_PK-Site/en_PK/Product-Variation"
+} 
